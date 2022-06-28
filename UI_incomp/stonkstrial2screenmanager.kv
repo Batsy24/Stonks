@@ -1,0 +1,319 @@
+<Label>
+	font_name: 'D:\Study_stuff\Compuper_science\Kivy\Fonts\Handwritten-Regular.ttf'
+	color: (0, 0, 0, 1)
+	background_color: (0, 0, 0, 0)
+	
+
+<HomePage>:
+	canvas.before:
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			source: 'Images/background.jpg'
+	BoxLayout: #MAIN BOX
+		orientation: "vertical"              #Menu, BIG LABEL, Profile
+		size: root.width, root.height
+		padding: 10
+		BoxLayout:
+			size_hint: (1, 0.07)
+			pos: (0, 0)
+			Button: #Menu button
+				size_hint: (0.11, 1)
+				font_size: 22
+				text: "Forecast"
+				on_press: root.manager.current = "ForecastPage"
+			Image:
+				size_hint: (0.376, 1)
+				source: 'Images/Big heading cropped.png' #STONK$
+			Button:
+				size_hint: (0.11, 1)
+				font_size: 22
+				text: 'News'
+				on_press: root.manager.current = 'NewsPage'
+				
+				
+		BoxLayout:                           # Search box and search button
+			size_hint: (1, 0.04)
+			padding: (100, 0)
+			TextInput: #Search box
+				size_hint: (0.8, 1)       
+				id: input_text
+				text: 'Enter Input Ticker'
+				font_name: "D:\Study_stuff\Compuper_science\Kivy\Fonts\Handwritten-Regular.ttf"
+				font_size: 22
+				multiline: False
+			TextInput: #Search button
+				id: input_window
+				text: 'Enter Period'
+				font_name: "D:\Study_stuff\Compuper_science\Kivy\Fonts\Handwritten-Regular.ttf"
+				font_size: 22
+				size_hint: (0.8, 1)
+		BoxLayout:
+			orientation: 'vertical'
+			size_hint: (1, 0.055)		
+			Label: #Heading Label
+				id: heading_label
+				text_size: root.size
+				halign: 'left'
+				valign: 'center'
+				
+				font_size: 50
+			BoxLayout:
+				Label:
+					id: longName
+					font_size: 22
+				Label:
+					id: difference
+					font_size: 22
+					
+			
+		BoxLayout:    #RadioButtonsForTimePeriod
+			id: radio_layout
+			size_hint: (1, 0.03)
+			spacing: 30
+			BoxLayout:
+				Label: 
+					text: '1d'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '1d')
+			BoxLayout:
+				Label: 
+					text: '7d'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '7d')
+			BoxLayout:
+				Label: 
+					text: '1mo'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '1mo')
+			BoxLayout:
+				Label: 
+					text: '3mo'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '3mo')
+			BoxLayout:
+				Label: 
+					text: '6mo'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '6mo')
+			BoxLayout:
+				Label: 
+					text: '1y'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, '1y')
+			BoxLayout:
+				Label: 
+					text: 'ytd'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, 'ytd')
+			BoxLayout:
+				Label: 
+					text: 'max'
+				CheckBox: 
+					group: 'time_periods'
+					on_active: root.set_time1(self, self.active, 'max')
+		
+		
+		BoxLayout:    #RadioButtonsForColumnOfDataframe
+			id: radio_layout_2
+			size_hint: (1, 0.02)
+			spacing: 30
+			BoxLayout:
+				Label: 
+					text: 'Close'
+				CheckBox: 
+					group: 'columns'
+					on_active: root.set_col1(self, self.active, 'Close')
+			BoxLayout:
+				Label: 
+					text: 'MA'
+				CheckBox: 
+					group: 'columns'
+					on_active: root.set_col1(self, self.active, 'MA')
+			BoxLayout:
+				Label: 
+					text: 'EMA'
+				CheckBox: 
+					group: 'columns'
+					on_active: root.set_col1(self, self.active, 'EMA')
+			BoxLayout:
+				Label: 
+					text: 'MACD'
+				CheckBox: 
+					group: 'columns'
+					on_active: root.set_col1(self, self.active, 'MACD')
+			BoxLayout:
+				Label: 
+					text: 'Bollinger'
+				CheckBox: 
+					group: 'columns'
+					on_active: root.set_col1(self, self.active, 'Bollinger')
+		
+					
+		Carousel: #GraphStuff
+			size_hint: (1, 0.4)
+			BoxLayout: #Carousel Item 1
+				orientation: "vertical"
+				id: car1
+					
+				Button:
+					size_hint: (1, 0.05)
+					font_size: 20
+					text: 'Add'
+					on_press: root.addInCarousel1()
+				BoxLayout:
+					orientation: "vertical"
+					id: graph_box1
+					size_hint: (1, 0.8)
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Remove'
+					font_size: 20
+					on_press: root.removeFromCarousel1()
+				Label:
+					font_size: 24
+					size_hint: (1, 0.3)
+					id: graph_label1
+					
+			
+			BoxLayout: # Carousel Item 2
+				orientation: "vertical"
+				id: car2
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Add'
+					on_press: root.addInCarousel2()
+				BoxLayout:
+					orientation: "vertical"
+					id: graph_box2
+					size_hint: (1, 0.8)
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Remove'
+					on_press: root.removeFromCarousel2()
+				Label:
+					size_hint: (1, 0.3)
+					id: graph_label2
+			
+			BoxLayout: # Carousel Item 3
+				orientation: "vertical"
+				id: car3
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Add'
+					on_press: root.addInCarousel3()
+				BoxLayout:
+					orientation: "vertical"
+					id: graph_box3
+					size_hint: (1, 0.8)
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Remove'
+					on_press: root.removeFromCarousel3()
+				Label:
+					size_hint: (1, 0.3)
+					id: graph_label3
+			BoxLayout: # Carousel Item 4
+				orientation: "vertical"
+				id: car4
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Add'
+					on_press: root.addInCarousel4()
+				BoxLayout:
+					orientation: "vertical"
+					id: graph_box4
+					size_hint: (1, 0.8)
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Remove'
+					on_press: root.removeFromCarousel4()
+				Label:
+					size_hint: (1, 0.3)
+					id: graph_label4
+			BoxLayout: # Carousel Item 5
+				orientation: "vertical"
+				id: car5
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Add'
+					on_press: root.addInCarousel5()
+				BoxLayout:
+					orientation: "vertical"
+					id: graph_box5
+					size_hint: (1, 0.8)
+				Button:
+					size_hint: (1, 0.05)
+					text: 'Remove'
+					on_press: root.removeFromCarousel5()
+				Label:
+					size_hint: (1, 0.3)
+					id: graph_label5
+				
+<ForecastPage>:
+	canvas.before:
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			source: 'Images/background.jpg'
+	BoxLayout:
+		orientation: 'vertical'
+		BoxLayout:
+			size_hint: (1, 0.05)
+			Button:
+				text: 'Home'
+				on_press: root.manager.current = 'HomePage'
+			Button: 
+				text: 'News'
+				on_press: root.manager.current = 'NewsPage'
+		Image:
+			source: 'Images/ForecastHeading.png'
+		Label:
+			size_hint: (1, 0.8)
+			text: "Sample text"
+
+<NewsPage>
+	canvas.before:
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			source: 'Images/News background.jpeg'
+	BoxLayout:
+		orientation: 'vertical'
+		spacing: 20
+		BoxLayout:
+			size_hint: (1, 0.05)
+			Button:
+				size_hint: (0.1, 1)
+				text: 'Home'
+				on_press: root.manager.current = 'HomePage'
+			Label:
+				size_hint: (0.8, 1)
+				text: ''
+			Button:
+				size_hint: (0.1, 1)
+				text: 'Forecast'
+				on_press: root.manager.current = 'ForecastPage'
+				
+		Label:
+			size_hint: (1, 0.05)
+			text: ''
+		Button:
+			size_hint: (1, 0.02)
+			padding: (0, 40)
+			text: 'UpdateNews'
+			on_press: root.News()
+		
+		Label:
+			size_hint: (1, 0.8)
+			id: news_label
+			font_size: 20
+			text: ""
+		
